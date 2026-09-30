@@ -1,3 +1,6 @@
+//This is the main screen for the admin interface
+
+//Currently a template, most of this will have to be cleared out
 import { useState } from 'react'
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
