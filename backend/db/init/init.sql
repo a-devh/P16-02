@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS bricks (
     inscription TEXT,
     campus brick_campus NOT NULL,
     section brick_section NOT NULL,
-    brick_row INT NOT NULL,
-    brick_number INT NOT NULL,
+    brick_row INT DEFAULT NULL,
+    brick_number INT DEFAULT NULL,
     deleted BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_by VARCHAR(255) NOT NULL,
@@ -17,9 +17,11 @@ CREATE TABLE IF NOT EXISTS bricks (
     updated_by VARCHAR(255) NOT NULL
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS bricks_position
-ON bricks (campus, section, brick_row, brick_number)
-WHERE NOT deleted;
+   CREATE UNIQUE INDEX IF NOT EXISTS bricks_position
+   ON bricks (campus, section, brick_row, brick_number)
+   WHERE NOT deleted
+     AND brick_row IS NOT NULL
+     AND brick_number IS NOT NULL;
 
 CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL PRIMARY KEY,
