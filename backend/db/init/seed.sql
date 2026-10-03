@@ -7,6 +7,3 @@ VALUES
 ('Dev Student', 'dev.student@example.com', crypt('password', gen_salt('bf')), 'Student', 'dev', 'dev')
 ON CONFLICT DO NOTHING;
 
-INSERT INTO bricks (name, inscription, campus, section, brick_row, brick_number, created_by, updated_by)
-VALUES
-
