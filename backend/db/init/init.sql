@@ -1,5 +1,3 @@
-CREATE EXTENSION IF NOT EXISTS pg_trgm;
-
 CREATE TYPE brick_campus AS ENUM ('Kennesaw', 'Marietta');
 CREATE TYPE brick_section AS ENUM ('A','B','C','D','E','F','G','H','I','J','K','L');
 CREATE TYPE user_role AS ENUM ('Student', 'Staff', 'Admin');
@@ -10,6 +8,7 @@ CREATE TABLE IF NOT EXISTS bricks (
     inscription TEXT,
     campus brick_campus NOT NULL,
     section brick_section NOT NULL,
+    brick_row INT NOT NULL,
     brick_number INT NOT NULL,
     deleted BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -19,8 +18,10 @@ CREATE TABLE IF NOT EXISTS bricks (
 );
 
    CREATE UNIQUE INDEX IF NOT EXISTS bricks_position
-   ON bricks (campus, section, brick_number)
-   WHERE NOT deleted;
+   ON bricks (campus, section, brick_row, brick_number)
+   WHERE NOT deleted
+     AND brick_row IS NOT NULL
+     AND brick_number IS NOT NULL;
 
 CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL PRIMARY KEY,
@@ -40,23 +41,3 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE UNIQUE INDEX IF NOT EXISTS user_email ON users (lower(email)) WHERE NOT deleted;
 CREATE UNIQUE INDEX IF NOT EXISTS user_username ON users (username) WHERE NOT deleted;
-
-CREATE OR REPLACE FUNCTION brick_search_text(
-    name text,
-    inscription text,
-    campus brick_campus,
-    section brick_section,
-    brick_number integer
-) RETURNS text
-LANGUAGE sql IMMUTABLE
-AS $$
-    SELECT concat_ws(' ', name, inscription, campus::text, section::text, brick_number)
-$$;
-
-CREATE INDEX IF NOT EXISTS bricks_search
-    ON bricks USING gin (
-        brick_search_text(name, inscription, campus, section, brick_number) gin_trgm_ops
-    )
-    WHERE deleted = false;
-
-alter database appdb set pg_trgm.word_similarity_threshold = 0.25;
