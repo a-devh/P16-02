@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS bricks (
     inscription TEXT,
     campus brick_campus NOT NULL,
     section brick_section NOT NULL,
-    brick_row INT DEFAULT NULL,
-    brick_number INT DEFAULT NULL,
+    brick_row INT NOT NULL,
+    brick_number INT NOT NULL,
     deleted BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_by VARCHAR(255) NOT NULL,
@@ -31,11 +31,11 @@ CREATE TABLE IF NOT EXISTS users (
     password_hash VARCHAR(255) NOT NULL,
     password_attempts INT NOT NULL DEFAULT 0,
     locked BOOLEAN NOT NULL DEFAULT FALSE,
+    role user_role NOT NULL DEFAULT 'Student',
     deleted BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_by VARCHAR(255) NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    role user_role NOT NULL DEFAULT 'Student',
     updated_by VARCHAR(255) NOT NULL
 );
 
