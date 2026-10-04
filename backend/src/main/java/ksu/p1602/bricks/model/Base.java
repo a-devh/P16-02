@@ -26,7 +26,6 @@ public abstract class Base {
 
     @UpdateTimestamp
     @Setter(AccessLevel.NONE)
-    @Column(name = "updated_at", nullable = false)
     private OffsetDateTime updatedAt;
 
     @CreationTimestamp
@@ -41,6 +40,5 @@ public abstract class Base {
 
     @LastModifiedBy
     @Column(name = "updated_by", nullable = false)
-    @Setter(AccessLevel.NONE)
     private String updatedBy;
 }
