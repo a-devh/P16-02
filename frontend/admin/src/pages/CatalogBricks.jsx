@@ -10,6 +10,11 @@ const CatalogBricks = () => {
 
             <div className="BrickPic">
             {/*This contains the brick banner bicture as well as the "Legacy Brick Admin" text */}
+                <Text>Brick Admin</Text>
+                <button>Catalog Bricks</button>
+                <button>Review Records</button>
+                <button>User Management</button>
+                <button>Sign Out</button>
             </div>
 
             <div className="Center Content">
