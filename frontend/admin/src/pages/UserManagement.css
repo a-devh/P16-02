@@ -1,0 +1,212 @@
+.user-management {
+  width: 100%;
+  min-width: 1000px;
+  min-height: 650px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #ffffff;
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+/* LEFT SIDE */
+
+.user-records-panel {
+  padding: 18px 55px 40px;
+  border-right: 1px solid #000000;
+  box-sizing: border-box;
+}
+
+.user-search-container {
+  position: relative;
+  width: 310px;
+  margin: 0 auto 12px;
+}
+
+.user-search {
+  width: 100%;
+  height: 42px;
+  padding: 0 45px 0 12px;
+  border: 1px solid #777777;
+  border-bottom: 4px solid #000000;
+  border-radius: 0;
+  background: #ffffff;
+  color: #000000;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.user-search::placeholder {
+  color: #888888;
+}
+
+.search-icon {
+  position: absolute;
+  right: 12px;
+  top: 45%;
+  transform: translateY(-50%);
+  color: #000000;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.user-record-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+}
+
+.user-card {
+  min-height: 42px;
+  padding: 6px 7px 6px 10px;
+  background: #ffc629;
+  border-bottom: 4px solid #000000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.user-card-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-card-info strong {
+  color: #000000;
+  font-size: 12px;
+  line-height: 1.15;
+}
+
+.user-card-info span {
+  margin-top: 2px;
+  color: #000000;
+  font-size: 8px;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.view-user-button {
+  flex-shrink: 0;
+  width: 85px;
+  height: 27px;
+  border: none;
+  background: #000000;
+  color: #ffffff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.view-user-button:hover {
+  background: #333333;
+}
+
+.no-users {
+  grid-column: 1 / -1;
+  padding: 30px 0;
+  text-align: center;
+  color: #555555;
+}
+
+/* RIGHT SIDE */
+
+.user-form-panel {
+  padding: 60px 70px;
+  box-sizing: border-box;
+}
+
+.create-user-form {
+  width: min(100%, 500px);
+  margin: 0 auto;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 75px 1fr;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.form-row label,
+.role-label {
+  color: #000000;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-row input {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #555555;
+  border-bottom: 4px solid #000000;
+  border-radius: 0;
+  background: #ffffff;
+  color: #000000;
+  padding: 0 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.form-row input:focus {
+  border-color: #000000;
+}
+
+.role-selector {
+  height: 42px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: #ffc629;
+  border-bottom: 4px solid #000000;
+}
+
+.role-button {
+  border: none;
+  background: transparent;
+  color: #000000;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.role-button:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.selected-role {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.form-actions {
+  margin-left: 75px;
+  margin-top: 48px;
+  display: flex;
+  justify-content: space-between;
+  gap: 45px;
+}
+
+.form-button {
+  width: 145px;
+  height: 43px;
+  border: none;
+  border-bottom: 4px solid #000000;
+  background: #ffc629;
+  color: #000000;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background: #e5b100;
+}
+
+/* Keeps the layout usable if the browser becomes narrow. */
+
