@@ -30,9 +30,6 @@ public class Brick extends Base {
     @Column(name = "section", nullable = false, columnDefinition = "brick_section")
     private Section section;
 
-    @Column(name = "brick_row")
-    private Integer row;
-
     @Column(name = "brick_number")
     private Integer number;
 }
