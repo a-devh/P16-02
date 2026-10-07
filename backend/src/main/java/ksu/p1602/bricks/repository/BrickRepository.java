@@ -15,11 +15,9 @@ public interface BrickRepository extends JpaRepository<Brick, Long>, JpaSpecific
 
         Optional<Brick> findByIdAndDeleted(Long id, boolean deleted);
 
-        // is an active brick already at this position?
         boolean existsByCampusAndSectionAndNumberAndDeletedFalse(
             Brick.Campus campus, Brick.Section section, Integer number);
 
-        // same, but ignoring the brick being updated
         boolean existsByCampusAndSectionAndNumberAndDeletedFalseAndIdNot(
             Brick.Campus campus, Brick.Section section, Integer number, Long id);
 
