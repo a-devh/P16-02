@@ -1,10 +1,11 @@
 //This screen displays the login UI
 
 import React from "react";
+import {Button, Fieldset, TextInput} from '@mantine/core';
 
 const Login = () => {
     return (
-        <div>
+        <Box>
             {/* */}
             <div className="TopBar">
             {/* Top Bar contains the navigation features */}
@@ -17,15 +18,15 @@ const Login = () => {
             <div className="LoginWindow">
             {/*This contains the components for the login features, */}
                 <h1>Login</h1>
-                <text>Email</text>
-                <textarea>Email</textarea>
-                <text>Password</text>
-                <textarea>Password</textarea>
-                <button>Login</button>
+                <Fieldset legend="Login">
+                    <TextInput label="Email" placeholder="Email"/>
+                    <TextInput label="Password" placeholder="Password"/>
+                </Fieldset>
+                <button variant="filled" radius="sm">Login</button>
                 <text>Forgot Password?</text>
             </div>
 
-        </div>
+        </Box>
     );
 };
 
