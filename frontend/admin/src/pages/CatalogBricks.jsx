@@ -1,23 +1,23 @@
 import React from "react";
-
+import {Button, Fieldset, TextInput, Box} from '@mantine/core';
 const CatalogBricks = () => {
     return (
-        <div>
+        <Box>
             {/* */}
-            <div className="TopBar">
+            <Box className="TopBar">
             {/* Top Bar contains the navigation features */}
-            </div>
+            </Box>
 
-            <div className="BrickPic">
+            <Box className="BrickPic">
             {/*This contains the brick banner bicture as well as the "Legacy Brick Admin" text */}
                 <Text>Brick Admin</Text>
-                <button>Catalog Bricks</button>
-                <button>Review Records</button>
-                <button>User Management</button>
-                <button>Sign Out</button>
-            </div>
+                <Button>Catalog Bricks</Button>
+                <Button>Review Records</Button>
+                <Button>User Management</Button>
+                <Button>Sign Out</Button>
+            </Box>
 
-            <div className="Center Content">
+            <Box className="Center Content">
             {/*This contains the components for the Add Brick features, */}
                 <h1>Add Brick</h1>
                 <text>Name</text>
@@ -35,14 +35,14 @@ const CatalogBricks = () => {
                 <text>Inscription</text>
                 <textarea></textarea>
 
-                <button>Add Brick</button>
-                <button>Clear</button>
+                <Button>Add Brick</Button>
+                <Button>Clear</Button>
 
                 <text>import Brick</text>
-                <button>Select File</button>
-            </div>
+                <Button>Select File</Button>
+            </Box>
 
-        </div>
+        </Box>
     );
 };
 
