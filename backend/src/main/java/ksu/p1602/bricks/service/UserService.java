@@ -30,16 +30,9 @@ public class UserService {
     }
 
     @Transactional(noRollbackFor = ResponseStatusException.class)
-    public User login(String usernameOrEmail, String rawPassword) {
-        Optional<User> found = usernameOrEmail.contains("@")
-                ? userRepository.findByEmailIgnoreCaseAndDeletedFalse(usernameOrEmail)
-                : userRepository.findByUsernameAndDeletedFalse(usernameOrEmail.toLowerCase());
-
-        if (found.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
-        }
-
-        User user = found.get();
+    public User login(String email, String rawPassword) {
+        User user = userRepository.findByEmailIgnoreCaseAndDeletedFalse(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password"));
 
         if (user.isLocked()) {
             throw new ResponseStatusException(HttpStatus.LOCKED,
@@ -49,17 +42,15 @@ public class UserService {
         if (!passwordEncoder.matches(rawPassword, user.getPasswordHash())) {
             int attempts = user.getPasswordAttempts() + 1;
             user.setPasswordAttempts(attempts);
-
             if (attempts >= MAX_FAILED_ATTEMPTS) {
                 user.setLocked(true);
                 userRepository.save(user);
                 throw new ResponseStatusException(HttpStatus.LOCKED,
                         "Account locked after too many failed attempts. Contact a system administrator.");
             }
-
             userRepository.save(user);
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-                    "Invalid username or password. " + (MAX_FAILED_ATTEMPTS - attempts) + " attempts remaining.");
+                    "Invalid email or password. " + (MAX_FAILED_ATTEMPTS - attempts) + " attempts remaining.");
         }
 
         user.setPasswordAttempts(0);

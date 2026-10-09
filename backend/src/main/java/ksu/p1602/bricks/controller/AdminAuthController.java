@@ -28,7 +28,7 @@ import ksu.p1602.bricks.service.UserService;
 @RequestMapping("/api/auth")
 public class AdminAuthController {
 
-    public record LoginRequest(String username, String password) {}
+    public record LoginRequest(String email, String password) {}
 
     public record LoginResponse(
             String token,
@@ -50,18 +50,18 @@ public class AdminAuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest req) {
-        if (req.username() == null || req.password() == null
-                || req.username().isBlank() || req.password().isBlank()) {
+        if (req.email() == null || req.password() == null
+                || req.email().isBlank() || req.password().isBlank()) {
             return ResponseEntity.badRequest()
-                    .body(Map.of("error", "Username and password are required"));
+                    .body(Map.of("error", "Email and password are required"));
         }
 
         try {
-            User user = userService.login(req.username().trim(), req.password());
+            User user = userService.login(req.email().trim(), req.password());
             String token = createToken(user);
             return ResponseEntity.ok(new LoginResponse(
                     token,
-                    user.getUsername(),
+                    user.getEmail(),
                     user.getName(),
                     user.getRole().name(),
                     user.isPasswordResetRequired()));   // NEW
@@ -84,7 +84,7 @@ public class AdminAuthController {
                 .issuer("bricks")
                 .issuedAt(now)
                 .expiresAt(now.plus(expirationMinutes, ChronoUnit.MINUTES))
-                .subject(user.getUsername())
+                .subject(user.getEmail())
                 .claim("role", role)                    
                 .build();
 

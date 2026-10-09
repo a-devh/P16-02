@@ -52,11 +52,4 @@ public interface BrickRepository extends JpaRepository<Brick, Long>, JpaSpecific
     
     //get by id (deleted and non-deleted)
     Optional<Brick> findByIdAndDeleted(Long id, boolean deleted);
-
-    //collision checkers
-    boolean existsByCampusAndSectionAndNumberAndDeletedFalse(
-        Brick.Campus campus, Brick.Section section, Integer number);
-
-    boolean existsByCampusAndSectionAndNumberAndDeletedFalseAndIdNot(
-        Brick.Campus campus, Brick.Section section, Integer number, Long id);
 }

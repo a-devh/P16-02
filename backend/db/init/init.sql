@@ -18,10 +18,6 @@ CREATE TABLE IF NOT EXISTS bricks (
     updated_by VARCHAR(255) NOT NULL
 );
 
-   CREATE UNIQUE INDEX IF NOT EXISTS bricks_position
-   ON bricks (campus, section, brick_number)
-   WHERE NOT deleted;
-
 CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -40,7 +36,6 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS user_email ON users (lower(email)) WHERE NOT deleted;
-CREATE UNIQUE INDEX IF NOT EXISTS user_username ON users (username) WHERE NOT deleted;
 
 CREATE OR REPLACE FUNCTION brick_search_text(
     name text,
