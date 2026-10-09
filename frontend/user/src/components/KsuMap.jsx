@@ -1,28 +1,27 @@
+import { Group, SegmentedControl, Text } from '@mantine/core'
 import { campuses } from '../data/campuses.js'
 
 function KsuMap({ campus, onCampusChange, selectedBrick, children }) {
+  const campusOptions = campuses.map((option) => ({
+    label: option.shortName,
+    value: option.name,
+  }))
+
   return (
     <>
       <div className="map-toolbar">
-        <div
-          className="campus-switcher"
-          role="group"
-          aria-label="Choose campus"
-        >
-          {campuses.map((option) => (
-            <button
-              aria-pressed={campus === option.name}
-              key={option.name}
-              onClick={() => onCampusChange(option.name)}
-              type="button"
-            >
-              {option.shortName}
-            </button>
-          ))}
-        </div>
-        <span className="map-label">
-          CAMPUS DIRECTORY <i>·</i> 01
-        </span>
+        <Group justify="space-between" w="100%" wrap="nowrap">
+          <SegmentedControl
+            aria-label="Choose campus"
+            className="campus-switcher"
+            data={campusOptions}
+            onChange={onCampusChange}
+            value={campus}
+          />
+          <Text component="span" className="map-label">
+            CAMPUS DIRECTORY <i>·</i> 01
+          </Text>
+        </Group>
       </div>
       <div className="map-stage">
         {children}

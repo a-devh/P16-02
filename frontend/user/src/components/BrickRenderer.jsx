@@ -1,3 +1,5 @@
+import { Text } from '@mantine/core'
+
 function BrickRenderer({ brick }) {
   return (
     <div className={`brick-preview${brick ? ' has-brick' : ''}`}>
@@ -7,11 +9,11 @@ function BrickRenderer({ brick }) {
           <small>{brick.inscription}</small>
         </div>
       ) : (
-        <span className="preview-prompt">
+        <Text component="span" className="preview-prompt">
           Select a name
           <br />
           to preview its brick
-        </span>
+        </Text>
       )}
     </div>
   )

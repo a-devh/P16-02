@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mantine/core": "^9.7.1",
+    "@mantine/hooks": "^9.7.1",
     "mapbox-gl": "^3.32.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
