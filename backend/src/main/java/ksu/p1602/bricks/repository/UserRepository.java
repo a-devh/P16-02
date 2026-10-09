@@ -1,7 +1,6 @@
 package ksu.p1602.bricks.repository;
 
 import ksu.p1602.bricks.model.User;
-import ksu.p1602.bricks.dto.PasswordChangeDto;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,11 +52,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //login checkers
     Optional<User> findByUsernameAndDeletedFalse(String username);
     Optional<User> findByEmailAndDeletedFalse(String email);
-
-    //change user password
-    @Query("UPDATE User u SET u.passwordHash = :#{#dto.newPasswordHash} WHERE u.id = :#{#dto.userId}")
-    void changePassword(@Param("dto") PasswordChangeDto dto);
-
 
     Optional<User> findByEmailIgnoreCaseAndDeletedFalse(String usernameOrEmail);
 
