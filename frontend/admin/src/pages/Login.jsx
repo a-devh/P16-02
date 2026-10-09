@@ -1,30 +1,29 @@
 //This screen displays the login UI
 
 import React from "react";
-import {Button, Fieldset, TextInput} from '@mantine/core';
+import {Button, Fieldset, TextInput, Box, Center} from '@mantine/core';
 
 const Login = () => {
     return (
         <Box>
             {/* */}
-            <div className="TopBar">
+            <Box className="TopBar">
             {/* Top Bar contains the navigation features */}
-            </div>
+            </Box>
 
-            <div className="BrickPic">
+            <Box className="BrickPic">
             {/*This contains the brick banner bicture as well as the "Legacy Brick Admin" text */}
-            </div>
+            </Box>
 
-            <div className="LoginWindow">
+            <Box className="LoginWindow">
             {/*This contains the components for the login features, */}
-                <h1>Login</h1>
                 <Fieldset legend="Login">
                     <TextInput label="Email" placeholder="Email"/>
                     <TextInput label="Password" placeholder="Password"/>
                 </Fieldset>
-                <button variant="filled" radius="sm">Login</button>
+                <Button variant="filled" radius="sm">Login</Button>
                 <text>Forgot Password?</text>
-            </div>
+            </Box>
 
         </Box>
     );
