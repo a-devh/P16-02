@@ -29,7 +29,7 @@ public class BrickController {
     private final BrickService brickService;
 
     //public endpoints
-    @GetMapping ("user/bricks/search")
+    @GetMapping ("/user/bricks/search")
     public Page<BrickDto> searchBricks(
         @RequestParam(required = false) String q,
         @RequestParam(required = false) Brick.Campus campus,
@@ -41,13 +41,13 @@ public class BrickController {
         .map(BrickDto::fromEntity);
     }
 
-    @GetMapping("user/bricks/{id}")
+    @GetMapping("/user/bricks/{id}")
     public BrickDto get(@PathVariable Long id) {
         return BrickDto.fromEntity(brickService.getById(id, false));
     }
 
     //admin endpoints
-    @GetMapping("admin/bricks/search")
+    @GetMapping("/admin/bricks/search")
     
     public Page<AdminBrickDto> searchAdminBricks(
         @RequestParam(required = false) String q,
@@ -62,28 +62,28 @@ public class BrickController {
         .map(AdminBrickDto::fromEntity);
     }
 
-    @GetMapping("admin/bricks/{id}")
+    @GetMapping("/admin/bricks/{id}")
     public AdminBrickDto adminGet(@PathVariable Long id) {
         return AdminBrickDto.fromEntity(brickService.getById(id, null));
     }
 
-    @PostMapping("admin/bricks/create")
+    @PostMapping("/admin/bricks/create")
     public AdminBrickDto create(@Valid @RequestBody AdminBrickDto request) {
         return AdminBrickDto.fromEntity(brickService.create(request));
     }
 
-    @PostMapping("admin/bricks/import/check")
+    @PostMapping("/admin/bricks/import/check")
     public List<RowCheckDto> checkList(@RequestBody List<AdminBrickDto> requests) {
         return brickService.checkList(requests);
     }
 
-    @PostMapping("admin/bricks/import")
+    @PostMapping("/admin/bricks/import")
     @ResponseStatus(HttpStatus.CREATED)
     public List<AdminBrickDto> importList(@Valid @RequestBody List<AdminBrickDto> requests) {
         return brickService.importList(requests).stream().map(AdminBrickDto::fromEntity).toList();
     }
 
-    @PostMapping("admin/bricks/update")
+    @PostMapping("/admin/bricks/update")
     public AdminBrickDto update(@Valid @RequestBody AdminBrickDto request) {
         return AdminBrickDto.fromEntity(brickService.update(request));
     }
