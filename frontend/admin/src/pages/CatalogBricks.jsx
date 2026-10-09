@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Fieldset, TextInput, Box} from '@mantine/core';
+import {Button, Fieldset, TextInput, Box, Center} from '@mantine/core';
 const CatalogBricks = () => {
     return (
         <Box>
@@ -19,6 +19,7 @@ const CatalogBricks = () => {
 
             <Box className="Center Content">
             {/*This contains the components for the Add Brick features, */}
+                <Center>
                 <Fieldset legend="Add Brick">
                     <TextInput label="Name" placeholder=""/>
                     <TextInput label="Campus" placeholder=""/>
@@ -32,6 +33,8 @@ const CatalogBricks = () => {
                     <text>import Brick</text>
                     <Button>Select File</Button>
                 </Fieldset>
+                </Center>
+
                 
 
 
