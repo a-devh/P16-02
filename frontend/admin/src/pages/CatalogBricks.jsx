@@ -19,27 +19,23 @@ const CatalogBricks = () => {
 
             <Box className="Center Content">
             {/*This contains the components for the Add Brick features, */}
-                <h1>Add Brick</h1>
-                <text>Name</text>
-                <textarea></textarea>
+                <Fieldset legend="Add Brick">
+                    <TextInput label="Name" placeholder=""/>
+                    <TextInput label="Campus" placeholder=""/>
+                    <TextInput label="Row" placeholder=""/>
+                    <TextInput label="Row#" placeholder=""/>
+                    <TextInput label="Inscription" placeholder=""/>
 
-                <text>Campus</text>
-                <textarea></textarea>
+                    <Button>Add Brick</Button>
+                    <Button>Clear</Button>
 
-                <text>Row</text>
-                <textarea></textarea>
+                    <text>import Brick</text>
+                    <Button>Select File</Button>
+                </Fieldset>
+                
 
-                <text>Row#</text>
-                <textarea></textarea>
 
-                <text>Inscription</text>
-                <textarea></textarea>
 
-                <Button>Add Brick</Button>
-                <Button>Clear</Button>
-
-                <text>import Brick</text>
-                <Button>Select File</Button>
             </Box>
 
         </Box>
