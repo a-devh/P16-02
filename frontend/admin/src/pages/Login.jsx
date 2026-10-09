@@ -17,12 +17,17 @@ const Login = () => {
 
             <Box className="LoginWindow">
             {/*This contains the components for the login features, */}
+                <Center>
+                    
                 <Fieldset legend="Login">
                     <TextInput label="Email" placeholder="Email"/>
                     <TextInput label="Password" placeholder="Password"/>
                 </Fieldset>
+
                 <Button variant="filled" radius="sm">Login</Button>
                 <text>Forgot Password?</text>
+                </Center>
+
             </Box>
 
         </Box>
