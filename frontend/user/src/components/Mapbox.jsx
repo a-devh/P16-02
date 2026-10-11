@@ -58,7 +58,7 @@ function Mapbox({ campus, section, bricks = [] }) {
     mapboxgl.accessToken = accessToken
     const map = new mapboxgl.Map({
       container: containerRef.current,
-      style: 'mapbox://styles/colej057/cmu0dxke2004p01s4cru0de5l',
+      style: 'mapbox://styles/colej057/cmuitlvkp00du01s9afmjfdw3',
       center: campuses[0].center,
       zoom: campuses[0].zoom ?? 18,
     })
@@ -217,6 +217,11 @@ function Mapbox({ campus, section, bricks = [] }) {
     })
   }, [campus, section, sections])
 
+  const campusConfig = getCampusConfig(campus)
+  const showMissingPinsMessage =
+    accessToken &&
+    (sectionsError || (campusConfig.sections.length === 0 && campus !== 'Marietta Campus'))
+
   return (
     <div
       id="mapbox-map"
@@ -230,7 +235,7 @@ function Mapbox({ campus, section, bricks = [] }) {
           Add <code>VITE_MAPBOX_ACCESS_TOKEN</code> to the user app&apos;s environment to load the map.
         </div>
       )}
-      {accessToken && (sectionsError || getCampusConfig(campus).sections.length === 0) && (
+      {showMissingPinsMessage && (
         <div className="map-data-message" role="status">
           {sectionsError
             ? `Unable to load section pins: ${sectionsError}`

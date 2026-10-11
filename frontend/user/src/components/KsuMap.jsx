@@ -25,12 +25,6 @@ function KsuMap({ campus, onCampusChange, selectedBrick, children }) {
       </div>
       <div className="map-stage">
         {children}
-        <div
-          className="ksu-map-overlay"
-          data-campus={campus}
-          data-brick-id={selectedBrick?.id ?? ''}
-          aria-hidden="true"
-        />
       </div>
     </>
   )

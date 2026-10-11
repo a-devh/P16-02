@@ -23,7 +23,15 @@ export const campuses = [
     name: 'Marietta Campus',
     shortName: 'Marietta',
     center: [-84.5213056, 33.9376667],
-    zoom: 18,
-    sections: [],
+    zoom: 19,
+    sections: [
+      {name: 'A', coordinates: [-84.5218064, 33.9376648]},
+      {name: 'B', coordinates: [-84.5216426, 33.9376648]},
+      {name: 'C', coordinates: [-84.5214853, 33.9376624 ]},
+      {name: 'D', coordinates: [-84.5213259, 33.9376605]},
+      {name: 'E', coordinates: [-84.5211705, 33.9376605]},
+      {name: 'F', coordinates: [-84.5209938, 33.9376605]},
+      {name: 'G', coordinates: [-84.5208387, 33.9376559]},
+    ],
   },
 ]

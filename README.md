@@ -60,9 +60,9 @@ On Windows, `run.bat` in the repo root does all of the above in one go.
 
 The connection settings are in `docker-compose.yml` and `backend/src/main/resources/application.properties`. They are dev-only credentials and match each other, so nothing needs to be configured.
 
-Tables are defined in `backend/db/init/init.sql`, and sample data is in `backend/db/init/seed.sql`.
+Tables are defined in `backend/db/init/init.sql`. No sample bricks or development login accounts are created automatically.
 
-**Docker only runs those scripts the first time the database volume is created.** If you change either file, reset the database:
+**Docker only runs initialization scripts the first time the database volume is created.** If you change the schema, reset the database:
 
 ```bash
 docker compose down -v
@@ -70,12 +70,6 @@ docker compose up -d
 ```
 
 This deletes all data in the local database.
-
-Dev logins (from `seed.sql`, password is `password` for all):
-
-- `dev.admin@example.com`
-- `dev.staff@example.com`
-- `dev.student@example.com`
 
 ## Working on the project
 
