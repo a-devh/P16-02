@@ -13,18 +13,55 @@ const sampleBricks = [
 ];
 
 const ReviewRecords = () => {
+  const [bricks, setBricks] = useState(sampleBricks);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBrick, setSelectedBrick] = useState(sampleBricks[0]);
+  const [editedBrick, setEditedBrick] = useState({ ...sampleBricks[0] });
+  const [message, setMessage] = useState("");
 
   const filteredBricks = useMemo(() => {
     const search = searchTerm.trim().toLowerCase();
 
-    return sampleBricks.filter(
+    return bricks.filter(
       (brick) =>
         brick.name.toLowerCase().includes(search) ||
         brick.campus.toLowerCase().includes(search)
     );
-  }, [searchTerm]);
+  }, [searchTerm, bricks]);
+
+  const handleView = (brick) => {
+    setSelectedBrick(brick);
+    setEditedBrick({ ...brick });
+    setMessage("");
+  };
+
+  const handleChange = (field, value) => {
+    setEditedBrick((previous) => ({
+      ...previous,
+      [field]: value,
+    }));
+    setMessage("");
+  };
+
+  const handleSave = (event) => {
+    event.preventDefault();
+
+    const updatedBrick = { ...editedBrick };
+
+    setBricks((previous) =>
+      previous.map((brick) =>
+        brick.id === updatedBrick.id ? updatedBrick : brick
+      )
+    );
+
+    setSelectedBrick(updatedBrick);
+    setMessage("Brick record updated successfully!");
+  };
+
+  const handleCancel = () => {
+    setEditedBrick({ ...selectedBrick });
+    setMessage("Changes discarded.");
+  };
 
   return (
     <main className="review-records">
@@ -54,12 +91,16 @@ const ReviewRecords = () => {
               <button
                 type="button"
                 className="view-brick-button"
-                onClick={() => setSelectedBrick(brick)}
+                onClick={() => handleView(brick)}
               >
                 View
               </button>
             </article>
           ))}
+
+          {filteredBricks.length === 0 && (
+            <p>No matching brick records found.</p>
+          )}
         </div>
       </section>
 
@@ -68,41 +109,49 @@ const ReviewRecords = () => {
           Map Preview
         </div>
 
-        <form className="brick-edit-form">
+        <form className="brick-edit-form" onSubmit={handleSave}>
           <div className="brick-form-grid">
-            <label>
-              <span>Name</span>
-              <input type="text" defaultValue={selectedBrick.name} key={`name-${selectedBrick.id}`} />
-            </label>
-
-            <label>
-              <span>Campus</span>
-              <input type="text" defaultValue={selectedBrick.campus} key={`campus-${selectedBrick.id}`} />
-            </label>
-
-            <label>
-              <span>Row</span>
-              <input type="text" defaultValue={selectedBrick.row} key={`row-${selectedBrick.id}`} />
-            </label>
-
-            <label>
-              <span>Row #</span>
-              <input type="text" defaultValue={selectedBrick.rowNumber} key={`number-${selectedBrick.id}`} />
-            </label>
+            {[
+              ["name", "Name"],
+              ["campus", "Campus"],
+              ["row", "Row"],
+              ["rowNumber", "Row #"],
+            ].map(([field, label]) => (
+              <label key={field}>
+                <span>{label}</span>
+                <input
+                  type="text"
+                  value={editedBrick[field]}
+                  onChange={(event) =>
+                    handleChange(field, event.target.value)
+                  }
+                />
+              </label>
+            ))}
           </div>
 
           <label className="inscription-field">
             <span>Inscription</span>
             <textarea
-              defaultValue={selectedBrick.inscription}
-              key={`inscription-${selectedBrick.id}`}
+              value={editedBrick.inscription}
+              onChange={(event) =>
+                handleChange("inscription", event.target.value)
+              }
             />
           </label>
 
           <div className="brick-form-actions">
-            <button type="button">Save</button>
-            <button type="button">Cancel</button>
+            <button type="submit">Save</button>
+            <button type="button" onClick={handleCancel}>
+              Cancel
+            </button>
           </div>
+
+          {message && (
+            <p role="status" className="brick-status-message">
+              {message}
+            </p>
+          )}
         </form>
       </section>
     </main>
