@@ -1,0 +1,122 @@
+
+.admin-header {
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+
+.admin-topbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 22px;
+  flex-wrap: wrap;
+  background: #222;
+  color: #ffc629;
+  padding: 10px 35px;
+  font-size: 12px;
+}
+
+.admin-university-bar {
+  width: 100%;
+  background: white;
+}
+
+.admin-ksu-header-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.admin-banner {
+  min-height: 230px;
+  display: flex;
+  align-items: flex-end;
+  background-color: #81776e;
+  background-size: cover;
+  background-position: center;
+}
+
+.admin-banner-bottom {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.admin-title-image {
+  width: 340px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  object-position: left;
+}
+
+.admin-nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.admin-nav-links a {
+  background: #ffc629;
+  color: black;
+  text-decoration: none;
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin-nav-links a.active {
+  background: black;
+  color: white;
+}
+
+.admin-signout {
+  background: #ffc629;
+  color: black;
+  border: none;
+  padding: 14px 32px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .admin-banner-bottom {
+    justify-content: center;
+  }
+
+  .admin-nav-links {
+    justify-content: center;
+  }
+.admin-banner-bottom {
+  flex-wrap: nowrap;
+}
+
+.admin-banner-bottom > .admin-title-image {
+  flex-shrink: 0;
+  margin-left: 20px;
+}
+
+.admin-nav-links {
+  flex-shrink: 0;
+}
+
+@media (max-width: 1100px) {
+  .admin-banner-bottom {
+    flex-wrap: wrap;
+  }
+}
+.admin-title-container {
+  background-color: #ffc629;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.admin-title-container .admin-title-image {
+  margin-left: 0;
+}
+}
