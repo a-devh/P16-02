@@ -1,4 +1,6 @@
 import { useMemo, useState } from "react";
+import Mapbox from "../components/Mapbox";
+import KsuMap from "../components/KsuMap";
 import "./ReviewRecords.css";
 
 const sampleBricks = [
@@ -18,6 +20,7 @@ const ReviewRecords = () => {
   const [selectedBrick, setSelectedBrick] = useState(sampleBricks[0]);
   const [editedBrick, setEditedBrick] = useState({ ...sampleBricks[0] });
   const [message, setMessage] = useState("");
+  const [mapCampus, setMapCampus] = useState(sampleBricks[0].campus);
 
   const filteredBricks = useMemo(() => {
     const search = searchTerm.trim().toLowerCase();
@@ -32,6 +35,7 @@ const ReviewRecords = () => {
   const handleView = (brick) => {
     setSelectedBrick(brick);
     setEditedBrick({ ...brick });
+    setMapCampus(brick.campus);
     setMessage("");
   };
 
@@ -105,8 +109,21 @@ const ReviewRecords = () => {
       </section>
 
       <section className="brick-detail-panel">
-        <div className="brick-map-placeholder">
-          Map Preview
+        <div className="brick-map-container">
+          <KsuMap
+             campus={mapCampus}
+              onCampusChange={setMapCampus}
+              selectedBrick={selectedBrick}
+           >
+           <Mapbox
+              campus={mapCampus}
+              selectedBrick={
+                selectedBrick?.campus === mapCampus
+                ? selectedBrick
+                : null
+             }
+           />
+          </KsuMap>
         </div>
 
         <form className="brick-edit-form" onSubmit={handleSave}>
