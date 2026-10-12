@@ -1,0 +1,128 @@
+.admin-header {
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+
+/* KSU university header */
+.admin-university-bar {
+  width: 100%;
+  background: white;
+}
+
+.admin-ksu-header-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Main admin banner */
+.admin-banner {
+  min-height: 230px;
+  display: flex;
+  align-items: flex-end;
+  background-color: #81776e;
+  background-image: url("../assets/Rectangle 2.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Bottom row containing title, navigation, and sign out */
+.admin-banner-bottom {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Yellow container around admin title */
+.admin-title-container {
+  background-color: #ffc629;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.admin-title-image {
+  display: block;
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Navigation tabs */
+.admin-nav-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.admin-nav-links a {
+  background: #ffc629;
+  color: black;
+  text-decoration: none;
+  padding: 15px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.admin-nav-links a.active {
+  background: black;
+  color: white;
+}
+
+.admin-nav-links a:hover {
+  background: #e5ae19;
+  color: black;
+}
+
+/* Sign out button */
+.admin-signout {
+  background: #ffc629;
+  color: black;
+  border: none;
+  padding: 15px 25px;
+  font-weight: bold;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.admin-signout:hover {
+  background: #e5ae19;
+}
+
+/* Responsive layout */
+@media (max-width: 1100px) {
+  .admin-banner-bottom {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 12px 16px;
+  }
+
+  .admin-nav-links {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-title-image {
+    width: 240px;
+  }
+
+  .admin-nav-links a {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .admin-banner {
+    min-height: 200px;
+  }
+}
