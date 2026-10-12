@@ -1,3 +1,6 @@
+//This is the main page for the public-facing UI
+//Currently a template, most of this will have to be cleared out
+
 import { useState } from 'react'
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
