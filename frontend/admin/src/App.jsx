@@ -19,7 +19,7 @@ function App() {
         <Route path="/users" element={<UserManagement />} />
         <Route path="/reports" element={<Reports />} />
         <Route path='/records' element={<ReviewRecords />} />
-        <Route path='/catalog' element={<CatalogBricsk />} />
+        <Route path='/catalog' element={<CatalogBricks />} />
       </Routes>
     </BrowserRouter>
   )
