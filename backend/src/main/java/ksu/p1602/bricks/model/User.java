@@ -8,6 +8,7 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.generator.EventType;
 import org.hibernate.type.SqlTypes;
+ 
 @Entity 
 @Table (name = "users")
 @Getter @Setter 
@@ -38,4 +39,7 @@ public class User extends Base {
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     @Column(name = "role", nullable = false, columnDefinition = "user_role")
     private Role role = Role.Student;
+
+    @Column(name = "password_reset_required", nullable = false)
+    private boolean passwordResetRequired;
 }

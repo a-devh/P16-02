@@ -18,19 +18,16 @@ CREATE TABLE IF NOT EXISTS bricks (
     updated_by VARCHAR(255) NOT NULL
 );
 
-   CREATE UNIQUE INDEX IF NOT EXISTS bricks_position
-   ON bricks (campus, section, brick_number)
-   WHERE NOT deleted;
-
 CREATE TABLE IF NOT EXISTS users (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     username VARCHAR(255) GENERATED ALWAYS AS (lower(split_part(email, '@', 1))) STORED,
+    role user_role NOT NULL DEFAULT 'Student',
     password_hash VARCHAR(255) NOT NULL,
     password_attempts INT NOT NULL DEFAULT 0,
+    password_reset_required BOOLEAN NOT NULL DEFAULT FALSE,
     locked BOOLEAN NOT NULL DEFAULT FALSE,
-    role user_role NOT NULL DEFAULT 'Student',
     deleted BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_by VARCHAR(255) NOT NULL,
@@ -39,7 +36,6 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS user_email ON users (lower(email)) WHERE NOT deleted;
-CREATE UNIQUE INDEX IF NOT EXISTS user_username ON users (username) WHERE NOT deleted;
 
 CREATE OR REPLACE FUNCTION brick_search_text(
     name text,
@@ -57,6 +53,17 @@ CREATE INDEX IF NOT EXISTS bricks_search
     ON bricks USING gin (
         brick_search_text(name, inscription, campus, section, brick_number) gin_trgm_ops
     )
+    WHERE deleted = false;
+
+CREATE OR REPLACE FUNCTION user_search_text(name text, username text, email text)
+RETURNS text
+LANGUAGE sql IMMUTABLE
+AS $$
+    SELECT concat_ws(' ', name, username, email)
+$$;
+
+CREATE INDEX IF NOT EXISTS users_search
+    ON users USING gin (user_search_text(name, username, email) gin_trgm_ops)
     WHERE deleted = false;
 
 alter database appdb set pg_trgm.word_similarity_threshold = 0.25;

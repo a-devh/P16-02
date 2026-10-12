@@ -1,14 +1,11 @@
 package ksu.p1602.bricks.service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import ksu.p1602.bricks.dto.AdminBrickDto;
-import ksu.p1602.bricks.dto.PositionKeyDto;
 import ksu.p1602.bricks.dto.RowCheckDto;
 import ksu.p1602.bricks.model.Brick;
 import ksu.p1602.bricks.repository.BrickRepository;
@@ -30,11 +26,9 @@ import lombok.RequiredArgsConstructor;
 public class BrickService {
 
     private static final int NAME_MAX = 255;
-    private static final String POSITION_TAKEN = "A brick already exists at that position";
 
     private final BrickRepository brickRepository;
 
-    // deleted: false = active only, true = deleted only, null = both
     public Page<Brick> search(String q, Brick.Campus campus, Brick.Section section, Boolean deleted, int page, int size) {
         String query = (q == null || q.isBlank()) ? null : q.trim();
         String brickCampus = (campus == null) ? null : campus.name();
@@ -48,7 +42,6 @@ public class BrickService {
         return brickRepository.searchPage(query, brickCampus, brickSection, deleted, pageable);
     }
 
-    // deleted: false = active only (404 if deleted), null = either
     public Brick getById(Long id, Boolean deleted) {
         Optional<Brick> brick = (deleted == null)
         ? brickRepository.findById(id) : brickRepository.findByIdAndDeleted(id, deleted);
@@ -58,15 +51,9 @@ public class BrickService {
     @Transactional
     public Brick create(AdminBrickDto request) {
         requireValid(request);
-
-        if (brickRepository.existsByCampusAndSectionAndNumberAndDeletedFalse(
-                request.campus(), request.section(), request.number())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, POSITION_TAKEN);
-        }
-
         Brick brick = new Brick();
         apply(brick, request);
-        return saveOrConflict(brick);
+        return brickRepository.saveAndFlush(brick);
     }
 
     @Transactional
@@ -75,49 +62,24 @@ public class BrickService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id is required");
         }
         requireValid(request);
-
         Brick brick = getById(request.id(), null);
-
-        // only an active brick can collide with another active brick
-        if (!request.deleted() && brickRepository.existsByCampusAndSectionAndNumberAndDeletedFalseAndIdNot(
-                request.campus(), request.section(), request.number(), brick.getId())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, POSITION_TAKEN);
-        }
-
         apply(brick, request);
         brick.setDeleted(request.deleted());
-        return saveOrConflict(brick);
+        return brickRepository.saveAndFlush(brick);
     }
 
-    // index is the row's 0-based position in the list
     public List<RowCheckDto> checkList(List<AdminBrickDto> requests) {
         if (requests == null) {
             return List.of();
         }
-
         List<RowCheckDto> results = new ArrayList<>();
-        Set<PositionKeyDto> seen = new HashSet<>();
-
         for (int i = 0; i < requests.size(); i++) {
-            AdminBrickDto request = requests.get(i);
-            Map<String, String> errors = validate(request);
-
-            if (errors.isEmpty()) {
-                PositionKeyDto key = new PositionKeyDto(request.campus(), request.section(), request.number());
-                if (!seen.add(key)) {
-                    errors.put("position", "Duplicate position in this list");
-                } else if (brickRepository.existsByCampusAndSectionAndNumberAndDeletedFalse(
-                        key.campus(), key.section(), key.number())) {
-                    errors.put("position", POSITION_TAKEN);
-                }
-            }
-
+            Map<String, String> errors = validate(requests.get(i));
             results.add(new RowCheckDto(i, errors.isEmpty(), errors));
         }
         return results;
     }
 
-    // all or nothing: if any row fails the check, nothing is saved
     @Transactional
     public List<Brick> importList(List<AdminBrickDto> requests) {
         if (requests == null || requests.isEmpty()) {
@@ -139,14 +101,9 @@ public class BrickService {
             return brick;
         }).toList();
 
-        try {
-            return brickRepository.saveAllAndFlush(bricks);
-        } catch (DataIntegrityViolationException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, POSITION_TAKEN);
-        }
+        return brickRepository.saveAllAndFlush(bricks);
     }
 
-    // field name -> message; empty when the row is valid
     private Map<String, String> validate(AdminBrickDto request) {
         Map<String, String> errors = new LinkedHashMap<>();
         if (request == null) {
@@ -179,7 +136,6 @@ public class BrickService {
         }
     }
 
-    // copies only the editable fields; id, deleted and audit fields are left alone
     private void apply(Brick brick, AdminBrickDto request) {
         brick.setName(request.name().trim());
         brick.setInscription(request.inscription() == null || request.inscription().isBlank()
@@ -187,14 +143,5 @@ public class BrickService {
         brick.setCampus(request.campus());
         brick.setSection(request.section());
         brick.setNumber(request.number());
-    }
-
-    // the unique index can still reject a save if another request took the spot first
-    private Brick saveOrConflict(Brick brick) {
-        try {
-            return brickRepository.saveAndFlush(brick);
-        } catch (DataIntegrityViolationException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, POSITION_TAKEN);
-        }
     }
 }
