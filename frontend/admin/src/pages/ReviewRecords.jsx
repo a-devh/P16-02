@@ -1,4 +1,6 @@
 import { useMemo, useState } from "react";
+import Mapbox from "../components/Mapbox";
+import KsuMap from "../components/KsuMap";
 import "./ReviewRecords.css";
 
 const sampleBricks = [
@@ -13,18 +15,57 @@ const sampleBricks = [
 ];
 
 const ReviewRecords = () => {
+  const [bricks, setBricks] = useState(sampleBricks);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBrick, setSelectedBrick] = useState(sampleBricks[0]);
+  const [editedBrick, setEditedBrick] = useState({ ...sampleBricks[0] });
+  const [message, setMessage] = useState("");
+  const [mapCampus, setMapCampus] = useState(sampleBricks[0].campus);
 
   const filteredBricks = useMemo(() => {
     const search = searchTerm.trim().toLowerCase();
 
-    return sampleBricks.filter(
+    return bricks.filter(
       (brick) =>
         brick.name.toLowerCase().includes(search) ||
         brick.campus.toLowerCase().includes(search)
     );
-  }, [searchTerm]);
+  }, [searchTerm, bricks]);
+
+  const handleView = (brick) => {
+    setSelectedBrick(brick);
+    setEditedBrick({ ...brick });
+    setMapCampus(brick.campus);
+    setMessage("");
+  };
+
+  const handleChange = (field, value) => {
+    setEditedBrick((previous) => ({
+      ...previous,
+      [field]: value,
+    }));
+    setMessage("");
+  };
+
+  const handleSave = (event) => {
+    event.preventDefault();
+
+    const updatedBrick = { ...editedBrick };
+
+    setBricks((previous) =>
+      previous.map((brick) =>
+        brick.id === updatedBrick.id ? updatedBrick : brick
+      )
+    );
+
+    setSelectedBrick(updatedBrick);
+    setMessage("Brick record updated successfully!");
+  };
+
+  const handleCancel = () => {
+    setEditedBrick({ ...selectedBrick });
+    setMessage("Changes discarded.");
+  };
 
   return (
     <main className="review-records">

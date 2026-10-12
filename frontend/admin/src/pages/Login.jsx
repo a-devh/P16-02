@@ -1,12 +1,24 @@
-//This screen displays the login UI
+import {Button, Fieldset, TextInput, Box, Center, PasswordInput} from '@mantine/core';
 
-import React from "react";
-
-const Login = () => {
+const Login = ({ onSuccess }) => {
     return (
-        <div>
-            <h1>Login</h1>
-        </div>
+        <Box>
+            <Box className="BrickPic">
+            </Box>
+
+            <Box className="LoginWindow">
+                <Center>
+                    
+                <Fieldset legend="Login">
+                    <TextInput label="Email" placeholder="Email"/>
+                    <PasswordInput label="Password" description="Password" placeholder="Password"/>
+                </Fieldset>
+
+                <Button variant="filled" radius="sm" onClick={onSuccess}>Login</Button>
+                <text>Forgot Password?</text>
+                </Center>
+            </Box>
+        </Box>
     );
 };
 
