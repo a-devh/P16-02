@@ -1,0 +1,48 @@
+@base = http://localhost:8080/api
+
+GET {{base}}/user/bricks/search?q=a&size=10&page=0
+
+GET {{base}}/user/bricks/search?campus=Kennesaw&section=A
+
+GET {{base}}/user/bricks/1
+
+GET {{base}}/admin/bricks/search?campus=Kennesaw&deleted=true
+
+GET {{base}}/admin/bricks/1
+
+POST {{base}}/admin/bricks/create
+Content-Type: application/json
+
+{ "name": "Test Brick", "inscription": "Hello", "campus": "Marietta", "section": "L", "number": 999 }
+
+POST {{base}}/admin/bricks/create
+Content-Type: application/json
+
+{ "name": "Dupe", "campus": "Kennesaw", "section": "A", "number": 1 }
+
+POST {{base}}/admin/bricks/create
+Content-Type: application/json
+
+{ "name": "" }
+
+POST {{base}}/admin/bricks/update
+Content-Type: application/json
+
+{ "id": 1, "name": "Abraham Lincoln", "inscription": "Edited", "campus": "Kennesaw", "section": "A", "number": 1, "deleted": false }
+
+POST {{base}}/admin/bricks/import/check
+Content-Type: application/json
+
+[
+  { "name": "Import A", "campus": "Marietta", "section": "K", "number": 500 },
+  { "name": "Import B", "campus": "Marietta", "section": "K", "number": 500 },
+  { "name": "Import C", "campus": "Kennesaw", "section": "A", "number": 1 }
+]
+
+POST {{base}}/admin/bricks/import
+Content-Type: application/json
+
+[
+  { "name": "Import A", "campus": "Marietta", "section": "K", "number": 501 },
+  { "name": "Import B", "campus": "Marietta", "section": "K", "number": 502 }
+]

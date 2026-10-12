@@ -95,80 +95,55 @@ const ReviewRecords = () => {
               <button
                 type="button"
                 className="view-brick-button"
-                onClick={() => handleView(brick)}
+                onClick={() => setSelectedBrick(brick)}
               >
                 View
               </button>
             </article>
           ))}
-
-          {filteredBricks.length === 0 && (
-            <p>No matching brick records found.</p>
-          )}
         </div>
       </section>
 
       <section className="brick-detail-panel">
-        <div className="brick-map-container">
-          <KsuMap
-             campus={mapCampus}
-              onCampusChange={setMapCampus}
-              selectedBrick={selectedBrick}
-           >
-           <Mapbox
-              campus={mapCampus}
-              selectedBrick={
-                selectedBrick?.campus === mapCampus
-                ? selectedBrick
-                : null
-             }
-           />
-          </KsuMap>
+        <div className="brick-map-placeholder">
+          Map Preview
         </div>
 
-        <form className="brick-edit-form" onSubmit={handleSave}>
+        <form className="brick-edit-form">
           <div className="brick-form-grid">
-            {[
-              ["name", "Name"],
-              ["campus", "Campus"],
-              ["row", "Row"],
-              ["rowNumber", "Row #"],
-            ].map(([field, label]) => (
-              <label key={field}>
-                <span>{label}</span>
-                <input
-                  type="text"
-                  value={editedBrick[field]}
-                  onChange={(event) =>
-                    handleChange(field, event.target.value)
-                  }
-                />
-              </label>
-            ))}
+            <label>
+              <span>Name</span>
+              <input type="text" defaultValue={selectedBrick.name} key={`name-${selectedBrick.id}`} />
+            </label>
+
+            <label>
+              <span>Campus</span>
+              <input type="text" defaultValue={selectedBrick.campus} key={`campus-${selectedBrick.id}`} />
+            </label>
+
+            <label>
+              <span>Row</span>
+              <input type="text" defaultValue={selectedBrick.row} key={`row-${selectedBrick.id}`} />
+            </label>
+
+            <label>
+              <span>Row #</span>
+              <input type="text" defaultValue={selectedBrick.rowNumber} key={`number-${selectedBrick.id}`} />
+            </label>
           </div>
 
           <label className="inscription-field">
             <span>Inscription</span>
             <textarea
-              value={editedBrick.inscription}
-              onChange={(event) =>
-                handleChange("inscription", event.target.value)
-              }
+              defaultValue={selectedBrick.inscription}
+              key={`inscription-${selectedBrick.id}`}
             />
           </label>
 
           <div className="brick-form-actions">
-            <button type="submit">Save</button>
-            <button type="button" onClick={handleCancel}>
-              Cancel
-            </button>
+            <button type="button">Save</button>
+            <button type="button">Cancel</button>
           </div>
-
-          {message && (
-            <p role="status" className="brick-status-message">
-              {message}
-            </p>
-          )}
         </form>
       </section>
     </main>

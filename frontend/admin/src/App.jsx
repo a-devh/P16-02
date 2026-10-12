@@ -1,30 +1,28 @@
-
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
-import AdminHeader from "./components/AdminHeader";
-import CatalogBricks from "./pages/CatalogBricks";
-import ReviewRecords from "./pages/ReviewRecords";
-import UserManagement from "./pages/UserManagement";
-import Reports from "./pages/Reports";
-
-import "./App.css";
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import UserManagement from './pages/UserManagement'
+import Reports from './pages/Reports'
+import ReviewRecords from './pages/ReviewRecords'
+import CatalogBricsk from './pages/CatalogBricks'
+import './App.css'
 
 function App() {
   return (
     <BrowserRouter>
-      <AdminHeader />
-
-      <main>
-        <Routes>
-          <Route path="/" element={<Navigate to="/review-records" replace />} />
-          <Route path="/catalog-bricks" element={<CatalogBricks />} />
-          <Route path="/review-records" element={<ReviewRecords />} />
-          <Route path="/user-management" element={<UserManagement />} />
-          <Route path="/reports" element={<Reports />} />
-        </Routes>
-      </main>
+      <nav style={{ display: 'flex', gap: 12, padding: 12 }}>
+        <Link to="/users">Manage Users</Link>
+        <Link to='/reports'>View Reports</Link>
+        <Link to='/records'>View Records</Link>
+        <Link to='/catalog'>Add Bricks</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<div>Admin home</div>} />
+        <Route path="/users" element={<UserManagement />} />
+        <Route path="/reports" element={<Reports />} />
+        <Route path='/records' element={<ReviewRecords />} />
+        <Route path='/catalog' element={<CatalogBricks />} />
+      </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App
