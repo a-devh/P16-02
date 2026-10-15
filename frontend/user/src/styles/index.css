@@ -1,39 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
 
+/* Global base. Colors, font and sizes come from shared/styles/tokens.css
+   (imported first in main.jsx). Brand guide p.71: Montserrat for all web content, WCAG 2.0 AA. */
+ 
 :root {
-  font-family: 'DM Sans', 'Segoe UI', sans-serif;
-  color: #242424;
-  background: #fbfaf8;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-optical-sizing: auto;
-  font-weight: 400;
 }
+ 
 * {
   box-sizing: border-box;
 }
+ 
 html {
   min-width: 320px;
   scroll-behavior: smooth;
 }
+ 
 body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  font-size: var(--text-md);
+  line-height: 1.5;
 }
+ 
 button,
 input {
   font: inherit;
 }
+ 
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
-  outline: 3px solid #b58a00;
+  outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }
+ 
 ::selection {
-  color: #17120b;
-  background: #ffc629;
+  color: var(--ksu-on-gold);
+  background: var(--ksu-gold);
 }
+ 

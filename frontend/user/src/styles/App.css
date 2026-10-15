@@ -1,0 +1,725 @@
+
+/* User page styles, matched to kennesaw.edu's own stylesheet (webstatic external.min.css):
+   pill buttons (uppercase, bold, 2px letter-spacing, gold, blue on hover),
+   flat steam-gray cards with a 5px gold bar underneath, gold banner title,
+   dark footer with an 8px gold top border. Tokens from shared/styles/tokens.css. */
+ 
+.site-shell {
+  /* kennesaw.edu web colors that aren't in tokens.css */
+  --web-text: #1a1a1a;
+  --web-card: #f7f7f7;
+  --web-line: #dbdbdb;
+  --web-hover: #4651ce;
+  --web-footer: #222222;
+ 
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  color: var(--web-text);
+  background: var(--ksu-white);
+}
+ 
+.site-shell main {
+  flex: 1;
+}
+ 
+/* ---------- KSU button (.button on kennesaw.edu) ---------- */
+.purchase-link,
+.legacy-cta a,
+.map-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  border: 0;
+  border-radius: 9999px;
+  color: var(--web-text);
+  background: var(--ksu-gold);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 2px;
+  line-height: normal;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+ 
+.purchase-link:hover,
+.legacy-cta a:hover,
+.map-actions button:not(:disabled):hover {
+  color: var(--ksu-white);
+  background: var(--web-hover);
+  box-shadow: none;
+}
+ 
+.purchase-link span,
+.legacy-cta a span,
+.map-actions button span {
+  padding-left: var(--space-2);
+}
+ 
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--ksu-white);
+  box-shadow: 0 1px 0 var(--web-line);
+}
+ 
+.utility-bar,
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+ 
+.utility-bar {
+  min-height: 80px;
+}
+ 
+.university-brand {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+ 
+.brand-logo {
+  display: block;
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+}
+ 
+.utility-nav {
+  display: flex;
+  gap: var(--space-6);
+  margin-left: auto;
+}
+ 
+.utility-nav a {
+  color: var(--web-text);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+ 
+.utility-nav a:hover {
+  color: var(--web-hover);
+  text-decoration: underline 2px;
+  text-underline-offset: 4px;
+}
+ 
+/* ---------- Banner (gold title box, centered like kennesaw.edu) ---------- */
+.intro-band {
+  display: flex;
+  min-height: 260px;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background-color: var(--ksu-black);
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+    url('/bricks-header%20(1).jpg');
+  background-position: center, center 52%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+ 
+.intro-copy {
+  text-align: center;
+}
+ 
+.intro-copy h1 {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  color: var(--ksu-black);
+  background: var(--ksu-gold);
+  font-size: 2.5rem;
+  font-weight: var(--weight-black);
+  line-height: 1.15;
+}
+ 
+/* ---------- Kickers and panel headings ---------- */
+.section-kicker {
+  display: block;
+  margin: 0 0 var(--space-1);
+  color: var(--ksu-black-60);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+ 
+.panel-heading h2,
+.preview-heading h2 {
+  position: relative;
+  margin: 0;
+  padding-bottom: var(--space-3);
+  color: var(--ksu-black);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-black);
+  line-height: 1.2;
+}
+ 
+/* the short gold dash kennesaw.edu puts on its cards */
+.panel-heading h2::after,
+.preview-heading h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 3.5rem;
+  height: 0.4rem;
+  background: var(--ksu-gold);
+}
+ 
+/* ---------- Three-column finder ----------
+   The map column stays 960px; the side columns grow with the screen. */
+.finder-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 960px minmax(0, 1fr);
+  gap: var(--space-2);
+  align-items: stretch;
+  padding: var(--space-8) var(--space-6);
+}
+ 
+/* KSU card: flat steam gray, square corners, 5px gold bar underneath */
+.finder-panel,
+.map-panel,
+.preview-panel {
+  min-width: 0;
+  margin-bottom: 5px;
+  background: var(--web-card);
+  box-shadow: 0 5px 0 var(--ksu-gold);
+}
+ 
+.finder-panel,
+.preview-panel {
+  padding: var(--space-6) var(--space-4);
+}
+ 
+/* height 0 + min-height 100% = the column fills the row but its results can't stretch it */
+.finder-panel {
+  display: flex;
+  height: 0;
+  min-height: 100%;
+  flex-direction: column;
+}
+ 
+/* ---------- Search ---------- */
+.search-box {
+  display: flex;
+  height: 48px;
+  flex: 0 0 auto;
+  align-items: center;
+  margin: var(--space-6) 0 var(--space-4);
+  background: var(--ksu-white);
+  box-shadow: inset 0 0 0 2px var(--ksu-black);
+}
+ 
+.search-box:focus-within {
+  outline: 3px solid var(--web-hover);
+  outline-offset: 2px;
+}
+ 
+.search-box input {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0 var(--space-4);
+  border: 0;
+  outline: 0;
+  color: var(--web-text);
+  background: transparent;
+  font-size: var(--text-md);
+}
+ 
+.search-box input::placeholder {
+  color: var(--ksu-black-60);
+}
+ 
+.search-symbol {
+  padding: 0 var(--space-4);
+  color: var(--ksu-black);
+  font-size: var(--text-xl);
+  line-height: 1;
+}
+ 
+/* ---------- Results ---------- */
+.brick-results {
+  display: grid;
+  flex: 1;
+  min-height: 0;
+  align-content: start;
+  gap: 5px;
+  overflow-y: auto;
+  padding-bottom: 5px;
+}
+ 
+.brick-result {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 0;
+  color: var(--web-text);
+  background: var(--ksu-white);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+ 
+.brick-result:hover {
+  box-shadow: 0 3px 0 var(--web-hover);
+}
+ 
+.brick-result.is-selected {
+  box-shadow: 0 3px 0 var(--ksu-gold);
+}
+ 
+.result-initial {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--ksu-black);
+  background: var(--ksu-gold);
+  font-size: var(--text-md);
+  font-weight: var(--weight-black);
+}
+ 
+.result-copy {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+ 
+.result-copy strong,
+.result-copy small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+ 
+.result-copy strong {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+}
+ 
+.result-copy small {
+  color: var(--ksu-black-60);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+}
+ 
+.result-arrow {
+  margin-left: auto;
+  color: var(--ksu-black);
+  font-size: var(--text-lg);
+}
+ 
+.empty-results {
+  margin: var(--space-2) 0;
+  color: var(--ksu-black-60);
+  font-size: var(--text-sm);
+}
+ 
+/* ---------- Map ---------- */
+.map-panel {
+  display: flex;
+  flex-direction: column;
+}
+ 
+.map-toolbar {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+ 
+.map-label {
+  color: var(--ksu-black-60);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 2px;
+}
+ 
+.map-label i {
+  color: var(--ksu-black);
+  font-style: normal;
+}
+ 
+/* campus toggle: outlined KSU pills, gold when picked */
+.campus-switcher {
+  display: inline-flex;
+  gap: var(--space-2);
+}
+ 
+.campus-switcher button {
+  padding: 0.6rem 1.5rem;
+  border: 0;
+  border-radius: 9999px;
+  color: var(--ksu-black);
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--ksu-black);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+ 
+.campus-switcher button[aria-pressed='true'] {
+  background: var(--ksu-gold);
+  box-shadow: none;
+}
+ 
+.campus-switcher button:hover:not([aria-pressed='true']) {
+  color: var(--ksu-white);
+  background: var(--web-hover);
+  box-shadow: none;
+}
+ 
+/* 16:9 box; the Mapbox element fills it (don't position it, mapbox-gl.css sets position: relative) */
+.map-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--web-line);
+}
+ 
+.campus-map {
+  width: 100%;
+  height: 100%;
+}
+ 
+.ksu-map-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+ 
+.map-token-message {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-6);
+  color: var(--ksu-black);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+ 
+/* Share / Directions / Copy as a row of KSU pills */
+.map-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+ 
+/* Share and Copy are the outlined variant; Directions stays solid gold */
+.map-actions button:first-child,
+.map-actions button:last-child {
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--ksu-black);
+}
+ 
+.map-actions button:disabled {
+  color: var(--ksu-black-40);
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--ksu-black-20);
+  cursor: not-allowed;
+}
+ 
+/* ---------- Preview column ---------- */
+.preview-panel {
+  display: flex;
+  flex-direction: column;
+}
+ 
+/* A drawn brick: these browns are the physical brick, not brand colors */
+.brick-preview {
+  display: grid;
+  min-height: 130px;
+  place-items: center;
+  margin-top: var(--space-6);
+  overflow: hidden;
+  background-color: #966345;
+  background-image:
+    linear-gradient(178deg, rgba(255, 255, 255, 0.08), transparent 40%, rgba(32, 19, 14, 0.28)),
+    repeating-linear-gradient(0deg, transparent 0 35px, rgba(63, 34, 22, 0.23) 36px 39px),
+    repeating-linear-gradient(90deg, #a16b4b 0 61px, #704532 62px 66px, #a56c4b 67px 125px);
+}
+ 
+.brick-preview.has-brick {
+  padding: 0 var(--space-3);
+}
+ 
+.brick-face {
+  display: flex;
+  width: 100%;
+  min-height: 80px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  color: var(--ksu-white);
+  background: rgba(0, 0, 0, 0.45);
+  text-align: center;
+}
+ 
+.brick-face span {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+}
+ 
+.brick-face small {
+  font-size: var(--text-sm);
+}
+ 
+.preview-prompt {
+  padding: var(--space-2) var(--space-3);
+  color: var(--ksu-white);
+  background: rgba(0, 0, 0, 0.55);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  line-height: 1.4;
+  text-align: center;
+}
+ 
+.brick-details {
+  padding: var(--space-6) 0 var(--space-3);
+}
+ 
+.brick-details h3 {
+  margin: 0;
+  color: var(--ksu-black);
+  font-size: var(--text-lg);
+}
+ 
+.brick-details dl {
+  display: grid;
+  margin: var(--space-2) 0 0;
+}
+ 
+.brick-details dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--web-line);
+  font-size: var(--text-sm);
+}
+ 
+.brick-details dt {
+  color: var(--ksu-black-60);
+  font-weight: var(--weight-medium);
+}
+ 
+.brick-details dd {
+  margin: 0;
+  color: var(--ksu-black);
+  font-weight: var(--weight-bold);
+  text-align: right;
+}
+ 
+.location-card {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: auto;
+  padding: var(--space-4);
+  background: var(--ksu-white);
+  box-shadow: 0 3px 0 var(--ksu-gold);
+}
+ 
+.location-card > span {
+  color: var(--ksu-black);
+  font-size: var(--text-xl);
+  line-height: 1;
+}
+ 
+.location-card p {
+  margin: 0;
+  color: var(--ksu-black);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+ 
+.action-notice {
+  margin: var(--space-3) 0 0;
+  color: var(--ksu-black);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+}
+ 
+.purchase-link {
+  align-self: center;
+  margin-top: var(--space-6);
+}
+ 
+/* ---------- Call to action (white on black) ---------- */
+.legacy-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin: 0 var(--space-6) var(--space-12);
+  padding: var(--space-8) var(--space-12);
+  color: var(--ksu-white);
+  background: var(--ksu-black);
+}
+ 
+.legacy-cta h2 {
+  margin: 0;
+  color: var(--ksu-gold);
+  font-size: var(--text-2xl);
+}
+ 
+/* ---------- Footer (dark, 8px gold top border, white text) ---------- */
+.site-footer {
+  width: 100%;
+  max-width: none;
+  min-height: 72px;
+  border-top: 8px solid var(--ksu-gold);
+  color: var(--ksu-white);
+  background: var(--web-footer);
+  font-size: 0.9rem;
+}
+ 
+.site-footer span:first-child {
+  font-weight: var(--weight-black);
+  letter-spacing: 2px;
+}
+ 
+.site-footer a {
+  color: var(--ksu-white);
+  font-weight: var(--weight-bold);
+  text-decoration: none;
+}
+ 
+.site-footer a:hover {
+  color: var(--ksu-gold);
+}
+ 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+ 
+/* ---------- Narrower screens (kennesaw.edu breaks at 900px too) ---------- */
+@media (max-width: 1400px) {
+  .finder-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+  }
+}
+ 
+@media (max-width: 900px) {
+  .utility-bar {
+    min-height: 70px;
+  }
+ 
+  .utility-nav {
+    display: none;
+  }
+ 
+  .intro-band {
+    min-height: 180px;
+    padding: var(--space-4);
+  }
+ 
+  .intro-copy h1 {
+    padding: 0.4rem 0.5rem;
+    font-size: 1.4rem;
+  }
+ 
+  .finder-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    padding: var(--space-4);
+  }
+ 
+  .finder-panel {
+    height: auto;
+    min-height: 0;
+  }
+ 
+  .brick-results {
+    max-height: 320px;
+  }
+ 
+  .map-toolbar {
+    flex-wrap: wrap;
+  }
+ 
+  .purchase-link,
+  .legacy-cta a,
+  .map-actions button {
+    font-size: 0.8rem;
+  }
+ 
+  .legacy-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0 var(--space-4) var(--space-8);
+    padding: var(--space-6);
+  }
+ 
+  .legacy-cta h2 {
+    font-size: var(--text-xl);
+  }
+ 
+  .site-footer {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: var(--space-4);
+  }
+ 
+  .site-footer span:nth-child(2) {
+    display: none;
+  }
+}
+ 
+@media (max-width: 480px) {
+  .utility-bar {
+    padding: 0 var(--space-4);
+  }
+ 
+  .brand-logo {
+    width: 160px;
+  }
+ 
+  .map-label {
+    display: none;
+  }
+ 
+  .map-actions button {
+    width: 100%;
+  }
+}
+ 
