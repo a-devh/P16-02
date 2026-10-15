@@ -1,0 +1,96 @@
+/* KSU brand tokens, from the Brand Standards Guide (June 2026), pp. 41-42 and 71.
+   Import once in main.jsx:  import './tokens.css'  (Montserrat link goes in index.html) */
+
+:root {
+    /*Primary*/
+    --ksu-gold: #ffc629;
+    --ksu-gold-80: #ffd154;
+    --ksu-gold-60: #ffdd7f;
+    --ksu-gold-40: #ffe8a9;
+    --ksu-gold-20: #fff4d4;
+
+    --ksu-black: #000000;
+    --ksu-black-80: #333333;
+    --ksu-black-60: #666666;
+    --ksu-black-40: #999999;
+    --ksu-black-20: #cccccc;
+
+    --ksu-gray: #b0b3b2;
+    --ksu-white: #ffffff;
+
+    /*Secondary*/
+    --ksu-green: #00843d;
+    --ksu-green-20: #cce6d8;
+
+    --ksu-purple: #a682eb;
+    --ksu-purple-20: #ede6fb;
+
+    --ksu-orange: #f5873d;
+    --ksu-orange-20: #fde7d8;
+
+    --ksu-blue: #66abff;
+    --ksu-blue-20: #e0eeff;
+
+    --ksu-yellow: #ffff00;
+    --ksu-yellow-20: #ffffcc;
+
+    /*Text on background*/
+    --ksu-on-black: var(--ksu-white);
+    --ksu-on-gold: var(--ksu-black);
+    --ksu-on-gray: var(--ksu-black);
+    --ksu-on-green: var(--ksu-white);
+    --ksu-on-purple: var(--ksu-black);
+    --ksu-on-orange: var(--ksu-black);
+    --ksu-on-blue: var(--ksu-black);
+    --ksu-on-yellow: var(--ksu-black);
+
+    /*Semantic roles*/
+    --color-bg: var(--ksu-white);
+    --color-surface: var(--ksu-gold-20);
+    --color-text: var(--ksu-black);
+    --color-text-muted: var(--ksu-black-60);
+    --color-border: var(--ksu-gray);
+    --color-accent: var(--ksu-gold);
+    --color-on-accent: var(--ksu-on-gold);
+    --color-success: var(--ksu-green);
+    --color-focus: var(--ksu-black);
+
+    /*Font*/
+    --font-body: 'Montserrat', system-ui, sans-serif;
+    --font-heading: 'Montserrat', system-ui, sans-serif;
+    --weight-regular: 400;
+    --weight-medium: 500;
+    --weight-bold: 700;
+    --weight-black: 800;
+
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-md: 1rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.5rem;
+    --text-2xl: 2rem;
+    --text-3xl: 2.75rem;
+
+    /*4px spacing*/
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-12: 48px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    }
+
+    body {
+        font-family: var(--font-body);
+        color: var(--color-text);
+        background: var(--color-bg);
+    }
+
+    h1, h2, h3, h4 {
+        font-family: var(--font-heading);
+        font-weight: var(--weight-black);
+    }
