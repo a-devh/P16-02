@@ -1,11 +1,12 @@
-import { Button, Fieldset, Text, TextInput, Box, Center } from '@mantine/core'
-
+import { Button, Fieldset, Text, TextInput, Box, Center, Flex } from '@mantine/core'
+import '@mantine/core/styles.css';
+import "./CatalogBricks.css";
 const CatalogBricks = () => {
     return (
-        <Box>
-            <Box className="Center Content">
-                <h1>Catalog Bricks</h1>
-                <Center>
+        <div className="main">
+            <Box className="center-content">
+                
+                <div  className="pageContent">
                 <Fieldset legend="Add Brick">
                     <TextInput label="Name" placeholder=""/>
                     <TextInput label="Campus" placeholder=""/>
@@ -13,16 +14,16 @@ const CatalogBricks = () => {
                     <TextInput label="Row#" placeholder=""/>
                     <TextInput label="Inscription" placeholder=""/>
 
-                    <Button>Add Brick</Button>
-                    <Button>Clear</Button>
+                    <Button className="yellow-button">Add Brick</Button>
+                    <Button className="yellow-button">Clear</Button>
 
                     <Text>Import Brick</Text>
-                    <Button>Select File</Button>
+                    <Button className="yellow-button">Select File</Button>
                 </Fieldset>
-                </Center>
+                </div>
             </Box>
 
-        </Box>
+        </div>
     );
 };
 
