@@ -1,12 +1,14 @@
-function Results({ bricks, selectedBrickId, onSelect }) {
+import { UnstyledButton } from '@mantine/core'
+
+function Results({ bricks, isLoading, selectedBrickId, onSelect }) {
   return (
     <div className="brick-results" aria-live="polite">
       {bricks.map((brick) => (
-        <button
+        <UnstyledButton
+          aria-pressed={selectedBrickId === brick.id}
           className={`brick-result${selectedBrickId === brick.id ? ' is-selected' : ''}`}
           key={brick.id}
           onClick={() => onSelect(brick)}
-          type="button"
         >
           <span className="result-initial" aria-hidden="true">
             {brick.name.charAt(0)}
@@ -18,9 +20,9 @@ function Results({ bricks, selectedBrickId, onSelect }) {
           <span className="result-arrow" aria-hidden="true">
             →
           </span>
-        </button>
+        </UnstyledButton>
       ))}
-      {bricks.length === 0 && (
+      {!isLoading && bricks.length === 0 && (
         <p className="empty-results">
           No names match. Try another name or campus.
         </p>

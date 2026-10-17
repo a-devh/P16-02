@@ -6,11 +6,12 @@ import KsuMap from '../components/KsuMap.jsx'
 import Mapbox from '../components/Mapbox.jsx'
 import Results from '../components/Results.jsx'
 import SearchBar from '../components/SearchBar.jsx'
+import { campuses as mapCampuses } from '../data/campuses.js'
 import { search } from '../../../shared/api/bricks'
 import { Campus } from '../../../shared/api/shapes'
  
 // 'Kennesaw' -> Campus.kennesaw
-const getCampus = (name) => Campus[String(name ?? '').toLowerCase()] ?? Campus.kennesaw
+const getCampus = (name) => Campus[String(name ?? '').toLowerCase().replace(/ campus$/, '')] ?? Campus.kennesaw
  
 // the API brick plus the extra fields the existing components display
 const toView = (brick) => ({
@@ -21,7 +22,11 @@ const toView = (brick) => ({
  
 // a section's [lng, lat] if it's been filled in, otherwise the campus center
 function locationOf(brick, campusName) {
-  const point = brick && getCampus(brick.campus).sections[brick.section]
+  const campus = mapCampuses.find(
+    (option) => option.name === (brick?.campus ?? campusName) ||
+      option.shortName === (brick?.campus ?? campusName),
+  )
+  const point = campus?.sections.find((section) => section.name === brick?.section)?.coordinates
   return point?.length === 2 ? point : getCampus(brick?.campus ?? campusName).center
 }
  
@@ -31,10 +36,11 @@ function Index() {
   const [bricks, setBricks] = useState([])
   const [selectedBrick, setSelectedBrick] = useState(null)
   const [notice, setNotice] = useState('')
- 
+  const visibleBricks = query.trim() ? bricks : []
+
   // search the API 250ms after the user stops typing, limited to the active campus
   useEffect(() => {
-    if (!query.trim()) { setBricks([]); return }
+    if (!query.trim()) return
     const t = setTimeout(() => {
       search(query, activeCampus, '', 0, 25)
         .then((page) => setBricks(page.content.map(toView)))
@@ -87,7 +93,7 @@ function Index() {
             <div className="panel-heading"><h2 id="search-title">Find a name</h2></div>
             <SearchBar value={query} onChange={setQuery} />
             <Results
-              bricks={bricks}
+              bricks={visibleBricks}
               selectedBrickId={selectedBrick?.id}
               onSelect={(brick) => { setSelectedBrick(brick); setNotice('') }}
             />
@@ -95,7 +101,11 @@ function Index() {
  
           <section className="map-panel" aria-label="Campus map">
             <KsuMap campus={activeCampus} onCampusChange={switchCampus}>
-              <Mapbox campus={activeCampus} selectedBrick={selectedBrick} />
+                <Mapbox
+                  campus={activeCampus}
+                  section={selectedBrick?.section}
+                  bricks={visibleBricks}
+                />
             </KsuMap>
             <div className="map-actions"><button type="button" onClick={shareBrick} disabled={!selectedBrick}>Share brick <span aria-hidden="true">↗</span></button><button type="button" onClick={getDirections}>Get directions <span aria-hidden="true">↗</span></button><button type="button" onClick={copyLocation} disabled={!selectedBrick}>Copy location <span aria-hidden="true">⌁</span></button></div>
           </section>
