@@ -1,5 +1,5 @@
-import Index from './Index.jsx'
-import './App.css'
+import './styles/App.css'
+import Index from './pages/Index'
 
 function App() {
   return <Index />
