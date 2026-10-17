@@ -1,24 +1,22 @@
-import {Button, Fieldset, TextInput, Box, Center, PasswordInput} from '@mantine/core';
-
+import {Button, Fieldset, TextInput, Box, Center, PasswordInput, Container} from '@mantine/core';
+import '@mantine/core/styles.css';
+import "./Login.css";
 const Login = ({ onSuccess }) => {
     return (
-        <Box>
-            <Box className="BrickPic">
-            </Box>
-
-            <Box className="LoginWindow">
-                <Center>
-                    
+        <div className="main">
+            <Box className="center-content">
+                
+                <div  className="page-content">
                 <Fieldset legend="Login">
                     <TextInput label="Email" placeholder="Email"/>
-                    <PasswordInput label="Password" description="Password" placeholder="Password"/>
+                    <PasswordInput label="Password" placeholder="Password"/>
+                    <Button variant="filled" radius="sm" onClick={onSuccess} className="yellow-button">Login Text</Button>
+                    <text className="pass-text">Forgot Password?</text>
                 </Fieldset>
-
-                <Button variant="filled" radius="sm" onClick={onSuccess}>Login</Button>
-                <text>Forgot Password?</text>
-                </Center>
+                </div>
             </Box>
-        </Box>
+
+        </div>
     );
 };
 
